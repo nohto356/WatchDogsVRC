@@ -10,26 +10,27 @@ namespace NotoIto.App.WatchDogsVRC
     public static class VRCLogParser
     {
         public static event EventHandler<EventArgs> OnPlayerJoined;
+        public static event EventHandler<EventArgs> OnFriendRequestReceived;
         public enum MessageType { Unknown }
         private static Func<string, string, string, Optional.Option<(MessageType, string[])>>[] checkFuncList
                 = new Func<string, string, string, Optional.Option<(MessageType, string[])>>[]
                 {
-                    //PlayerJoined
+                    //OnPlayerJoined
                     (level, sender, message) =>
                     {
-                        if(level != "Log" || sender != "NetworkManager")
+                        if(level != "Log" || sender != "NetworkManager"|| !message.Contains("OnPlayerJoined"))
                             return Optional.Option.None<(MessageType, string[])>();
                         (MessageType, string[]) rt = default;
                         List<string> messages = new List<string>();
 
-                        OnPlayerJoined?.Invoke(message,EventArgs.Empty);
+                        OnPlayerJoined?.Invoke(message.Replace("OnPlayerJoined ","").Trim(),EventArgs.Empty);
 
                         rt.Item1 = MessageType.Unknown;
                         rt.Item2 = messages.ToArray();
                         return Optional.Option.None<(MessageType, string[])>();
                     },
 
-                    //ReceivedMessage
+                    //OnFriendRequestReceived
                     (level, sender, message) =>
                     {
                         if(level != "Log" || sender != "" || !message.Contains("Received Notification:") || !message.Contains("friendRequest"))
@@ -37,7 +38,7 @@ namespace NotoIto.App.WatchDogsVRC
                         (MessageType, string[]) rt = default;
                         List<string> messages = new List<string>();
 
-
+                        OnFriendRequestReceived?.Invoke("フレンドリクエストが届きました．",EventArgs.Empty);
 
                         rt.Item1 = MessageType.Unknown;
                         rt.Item2 = messages.ToArray();

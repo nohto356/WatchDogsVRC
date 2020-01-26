@@ -11,9 +11,9 @@ namespace NotoIto.App.WatchDogsVRC
     public class VRCLogStream
     {
         public event EventHandler<EventArgs> LogDataAvailable;
+        public readonly string FolderPath;
 
         private DateTime LastUpdateTime;
-        private readonly string FolderPath;
         private string LastFileName = "";
         private int LastLine = -1;
         private System.Threading.Thread thread;
@@ -46,9 +46,6 @@ namespace NotoIto.App.WatchDogsVRC
         {
             string logMessage = sender as string;
             var (logType, messageSender, messageType, messages) = VRCLogParser.ParseText(logMessage);
-            Console.WriteLine(logType.ToString());
-            Console.WriteLine(messageSender.ToString());
-            Console.WriteLine(messageType.ToString());
             foreach (var message in messages)
                 Console.WriteLine(message);
         }

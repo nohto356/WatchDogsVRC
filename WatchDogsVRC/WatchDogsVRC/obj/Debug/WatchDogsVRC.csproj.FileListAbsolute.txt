@@ -10,3 +10,5 @@ C:\Users\tss_a\Documents\WatchDogsVRC\WatchDogsVRC\WatchDogsVRC\obj\Debug\WatchD
 C:\Users\tss_a\Documents\WatchDogsVRC\WatchDogsVRC\WatchDogsVRC\obj\Debug\WatchDogsVRC.csproj.CopyComplete
 C:\Users\tss_a\Documents\WatchDogsVRC\WatchDogsVRC\WatchDogsVRC\obj\Debug\WatchDogsVRC.exe
 C:\Users\tss_a\Documents\WatchDogsVRC\WatchDogsVRC\WatchDogsVRC\obj\Debug\WatchDogsVRC.pdb
+C:\Users\tss_a\Documents\WatchDogsVRC\WatchDogsVRC\WatchDogsVRC\bin\Debug\Newtonsoft.Json.dll
+C:\Users\tss_a\Documents\WatchDogsVRC\WatchDogsVRC\WatchDogsVRC\bin\Debug\Newtonsoft.Json.xml
