@@ -63,7 +63,7 @@ namespace NotoIto.App.WatchDogsVRC.VRCWebAPI
             // Basic認証ヘッダを付与する
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
                 "Basic",
-                Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", id,password))));
+                Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", id, password))));
             CookieContainer cc = new CookieContainer();
 
             HttpClientHandler hcHandler = new HttpClientHandler();
@@ -72,9 +72,13 @@ namespace NotoIto.App.WatchDogsVRC.VRCWebAPI
             using (var client = new HttpClient(hcHandler))
             {
                 var resp = client.SendAsync(request).Result;
+                if (resp.StatusCode != HttpStatusCode.OK)
+                    throw new VRCAuthorizationException();
             }
             var c = cc.GetCookies(new Uri(APIBaseUrl + "/auth/user"));
             authToken = c[0].Value;
         }
     }
+
+    public class VRCAuthorizationException: Exception { }
 }

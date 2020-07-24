@@ -40,6 +40,7 @@
             this.signinedPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.loginErrorLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.signinedPanel.SuspendLayout();
             this.SuspendLayout();
@@ -132,6 +133,17 @@
             this.timer1.Interval = 10000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // loginErrorLabel
+            // 
+            this.loginErrorLabel.AutoSize = true;
+            this.loginErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.loginErrorLabel.Location = new System.Drawing.Point(60, 108);
+            this.loginErrorLabel.Name = "loginErrorLabel";
+            this.loginErrorLabel.Size = new System.Drawing.Size(117, 12);
+            this.loginErrorLabel.TabIndex = 1;
+            this.loginErrorLabel.Text = "ログインできませんでした";
+            this.loginErrorLabel.Visible = false;
+            // 
             // Configurator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -140,6 +152,7 @@
             this.Controls.Add(this.signinedPanel);
             this.Controls.Add(this.signinButton);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.loginErrorLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Configurator";
             this.Text = "WatchDocsVRC 設定";
@@ -149,6 +162,7 @@
             this.signinedPanel.ResumeLayout(false);
             this.signinedPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -164,6 +178,7 @@
         private System.Windows.Forms.Panel signinedPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label loginErrorLabel;
     }
 }
 

@@ -25,9 +25,16 @@ namespace NotoIto.App.WatchDogsVRC
             InitializeComponent();
             NotoIto.Utility.ClassSerializer.ReadXML<Config.VRCUserModel>(Path.Combine(vrcLog.FolderPath, "VRCUser.xml")).Match(
                 (x) => {
-                    vrcUser = x;
-                    userFriendList = new VRCWebAPI.UserFriendList(x.ID, x.Password);
-                    signinedPanel.Visible = true;
+                    try
+                    {
+                        userFriendList = new VRCWebAPI.UserFriendList(x.ID, x.Password);
+                        vrcUser = x;
+                        signinedPanel.Visible = true;
+                    }
+                    catch
+                    {
+                        vrcUser = new Config.VRCUserModel();
+                    }
                 },
                 () => vrcUser = new Config.VRCUserModel());
             VRCLogParser.OnPlayerJoined += OnPlayerJoined;
@@ -87,10 +94,18 @@ namespace NotoIto.App.WatchDogsVRC
         {
             vrcUser.ID = iDTextBox.Text;
             vrcUser.Password = passwordTextBox.Text;
-
-            userFriendList = new VRCWebAPI.UserFriendList(vrcUser.ID, vrcUser.Password);
-            NotoIto.Utility.ClassSerializer.WriteXML<Config.VRCUserModel>(vrcUser,Path.Combine(vrcLog.FolderPath,"VRCUser.xml"));
-            signinedPanel.Visible = true;
+            signinButton.Enabled = false;
+            try
+            {
+                userFriendList = new VRCWebAPI.UserFriendList(vrcUser.ID, vrcUser.Password);
+                NotoIto.Utility.ClassSerializer.WriteXML<Config.VRCUserModel>(vrcUser, Path.Combine(vrcLog.FolderPath, "VRCUser.xml"));
+                signinedPanel.Visible = true;
+            }
+            catch
+            {
+                loginErrorLabel.Visible = true;
+                signinButton.Enabled = true;
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
